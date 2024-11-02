@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Upload Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form, .note-list {
+            margin-top: 20px;
+        }
+        .note {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+        .note a {
+            text-decoration: none;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Teacher Upload Portal</h1>
+
+    <!-- Upload Form -->
+    <form id="uploadForm">
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" name="title" required><br><br>
+        
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="description" required></textarea><br><br>
+        
+        <label for="file">Choose file:</label><br>
+        <input type="file" id="file" name="file" required><br><br>
+        
+        <button type="submit">Upload</button>
+    </form>
+
+    <h2>Uploaded Notes</h2>
+    <div class="note-list" id="noteList"></div>
+
+    <script>
+        // Function to fetch and display uploaded notes
+        async function fetchNotes() {
+            const response = await fetch('http://localhost:3000/notes');
+            const notes = await response.json();
+            
+            const noteList = document.getElementById('noteList');
+            noteList.innerHTML = '';  // Clear the list
+            
+            notes.forEach(note => {
+                const noteDiv = document.createElement('div');
+                noteDiv.classList.add('note');
+                noteDiv.innerHTML = `
+                    <h3>${note.title}</h3>
+                    <p>${note.description}</p>
+                    <p><a href="${note.filePath}" target="_blank">Download File</a></p>
+                    <p><small>Uploaded on: ${new Date(note.dateUploaded).toLocaleString()}</small></p>
+                `;
+                noteList.appendChild(noteDiv);
+            });
+        }
+
+        // Fetch notes on page load
+        fetchNotes();
+
+        // Handle form submission for file upload
+        document.getElementById('uploadForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            
+            const formData = new FormData();
+            formData.append('title', document.getElementById('title').value);
+            formData.append('description', document.getElementById('description').value);
+            formData.append('file', document.getElementById('file').files[0]);
+            
+            const response = await fetch('http://localhost:3000/upload', {
+                method: 'POST',
+                body: formData
+            });
+            
+            if (response.ok) {
+                alert('File uploaded successfully');
+                document.getElementById('uploadForm').reset();
+                fetchNotes();  // Refresh the notes list
+            } else {
+                alert('Failed to upload file');
+            }
+        });
+    </script>
+
+</body>
+</html>

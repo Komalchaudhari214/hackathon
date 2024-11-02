@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Senior Resource Hub</title>
+            <style>
+                body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
+                header { background: #4CAF50; color: white; padding: 10px 0; text-align: center; }
+                nav ul { list-style: none; padding: 0; }
+                nav ul li { display: inline; margin: 0 10px; }
+                section { margin: 20px 0; }
+                footer { text-align: center; margin-top: 20px; padding: 10px 0; background: #f1f1f1; }
+            </style>
+        </head>
+        <body>
+            <header>
+                <h1>Senior Resource Hub</h1>
+                <nav>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </header>
+
+            <main>
+                <section id="question-paper">
+                    <h2>Upload Question Paper</h2>
+                    <input type="file" id="questionPaperInput">
+                    <button onclick="uploadFile('questionPaperInput', '/upload/question-paper')">Submit</button>
+                </section>
+
+                <section id="notes">
+                    <h2>Upload Notes</h2>
+                    <input type="file" id="notesInput">
+                    <button onclick="uploadFile('notesInput', '/upload/notes')">Submit</button>
+                </section>
+
+                <section id="projects">
+                    <h2>Upload Projects</h2>
+                    <input type="file" id="projectsInput">
+                    <button onclick="uploadFile('projectsInput', '/upload/projects')">Submit</button>
+                </section>
+
+                <section id="experience">
+                    <h2>Share Your Experience</h2>
+                    <textarea id="experienceInput" rows="4" cols="50"></textarea>
+                    <button onclick="submitExperience()">Submit</button>
+                </section>
+
+                <section id="feedback">
+                    <h2>Feedback from Students</h2>
+                    <ul id="feedbackList"></ul>
+                </section>
+
+                <section id="brochure">
+                    <h2>Upload Brochures</h2>
+                    <input type="file" id="brochureInput">
+                    <button onclick="uploadFile('brochureInput', '/upload/brochure')">Submit</button>
+                </section>
+            </main>
+
+            <footer>
+                <p>Contact us at info@studyconnect.com</p>
+                <p>Follow us on social media!</p>
+            </footer>
+
+            <script>
+                async function uploadFile(inputId, url) {
+                    const input = document.getElementById(inputId);
+                    const formData = new FormData();
+                    formData.append('file', input.files[0]);
+
+                    try {
+                        const response = await fetch(url, {
+                            method: 'POST',
+                            body: formData
+                        });
+                        if (response.ok) {
+                            alert('File uploaded successfully!');
+                        } else {
+                            alert('File upload failed.');
+                        }
+                    } catch (error) {
+                        console.error('Error uploading file:', error);
+                    }
+                }
+
+                async function submitExperience() {
+                    const experienceText = document.getElementById('experienceInput').value;
+                    // Handle the experience submission to the server here
+                }
+            </script>
+        </body>
+        </html>
+    `);
+});
+

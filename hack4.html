@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Resources</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background: #007bff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        main {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+        .box {
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px;
+            width: 200px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .box h2 {
+            margin: 0 0 10px;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Student Resources</h1>
+    </header>
+    <main>
+        <section class="box" id="notes">
+            <h2>Notes</h2>
+            <button onclick="selectResource('Notes')">Select</button>
+        </section>
+        <section class="box" id="pyqs">
+            <h2>Previous Year Questions</h2>
+            <button onclick="selectResource('Previous Year Questions')">Select</button>
+        </section>
+        <section class="box" id="syllabus">
+            <h2>Syllabus</h2>
+            <button onclick="selectResource('Syllabus')">Select</button>
+        </section>
+        <section class="box" id="assignments">
+            <h2>Assignments</h2>
+            <button onclick="selectResource('Assignments')">Select</button>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Student Resources</p>
+    </footer>
+    <script>
+        function selectResource(resource) {
+            alert(`You selected: ${resource}`);
+            // Additional functionality can be implemented here
+        }
+    </script>
+</body>
+</html>

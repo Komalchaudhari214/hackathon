@@ -1,0 +1,113 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Notes Access</title>
+    <style>
+        /* Inline CSS */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            color: #007bff;
+        }
+        select, #notes-container {
+            margin-top: 10px;
+            padding: 10px;
+            width: 100%;
+            max-width: 500px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Select Your Notes</h1>
+        <select id="branch-select" onchange="loadSubjects()">
+            <option value="">Select Branch</option>
+            <option value="cse">Computer Science and Engineering</option>
+            <option value="ece">Electronics and Communication Engineering</option>
+            <option value="ee">Electrical Engineering</option>
+            <option value="mech">Mechanical Engineering</option>
+            <option value="civil">Civil Engineering</option>
+        </select>
+        <select id="subject-select" onchange="displayNotes()">
+            <option value="">Select Subject</option>
+        </select>
+        <div id="notes-container"></div>
+    </div>
+
+    <script>
+        // JavaScript Data for Branches and Subjects
+        const data = {
+            cse: [
+                "Data Structures and Algorithms",
+                "Discrete Mathematics",
+                "Mathematics",
+                "Digital Logic Design",
+                "Safety Engineering"
+            ],
+            ece: [
+                "Digital Signal Processing",
+                "Electromagnetic Theory",
+                "Control Systems",
+                "Circuit Theory",
+                "Communication Systems"
+            ],
+            ee: [
+                "Circuit Analysis",
+                "Electrical Machines",
+                "Power Systems",
+                "Control Systems",
+                "Electromagnetic Fields"
+            ],
+            mech: [
+                "Thermodynamics",
+                "Fluid Mechanics",
+                "Mechanics of Materials",
+                "Machine Design",
+                "Manufacturing Processes"
+            ],
+            civil: [
+                "Structural Analysis",
+                "Geotechnical Engineering",
+                "Transportation Engineering",
+                "Hydraulics",
+                "Environmental Engineering"
+            ]
+        };
+
+        function loadSubjects() {
+            const branch = document.getElementById("branch-select").value;
+            const subjectSelect = document.getElementById("subject-select");
+            subjectSelect.innerHTML = <option value="">Select Subject</option>; // Reset the subject options
+
+            // Check if the selected branch exists in the data object
+            if (data[branch]) {
+                data[branch].forEach(subject => {
+                    let option = document.createElement("option");
+                    option.value = subject;
+                    option.text = subject;
+                    subjectSelect.appendChild(option);
+                });
+            }
+        }
+
+        function displayNotes() {
+            const subject = document.getElementById("subject-select").value;
+            const notesContainer = document.getElementById("notes-container");
+            notesContainer.innerHTML = subject ? Displaying notes for: ${subject} : ''; // Show subject or clear
+        }
+    </script>
+</body>
+</html>
